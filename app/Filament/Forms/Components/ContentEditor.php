@@ -1,0 +1,28 @@
+<?php
+namespace App\Filament\Forms\Components;
+
+use Closure;
+use Filament\Forms\Components\Textarea;
+
+class ContentEditor extends Textarea
+{
+    protected string $view = 'filament.forms.components.content-editor'; // točno ime poti
+
+    protected bool|Closure $showPersonalization = false;
+
+    public function showPersonalization(bool|Closure $condition = true): static
+    {
+        $this->showPersonalization = $condition;
+
+        return $this;
+    }
+
+    public function getShowPersonalization(callable $get = null): bool
+    {
+        if (is_callable($this->showPersonalization)) {
+            return $get ? ($this->showPersonalization)($get) : false;
+        }
+
+        return $this->showPersonalization;
+    }
+}
